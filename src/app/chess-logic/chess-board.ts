@@ -17,11 +17,11 @@ export class ChessBoard {
             // White Area and Pieces
             [
                 new Rook(Color.White), new Knight(Color.White), new Bishop(Color.White), new Queen(Color.White), 
-                new King(Color.White), new Bishop(Color.White), new Knight(Color.White), new Rook(Color.White), 
+                new King(Color.White), new Bishop(Color.White), new Knight(Color.White), new Rook(Color.White)
             ],  
             [
                 new Pawn(Color.White), new Pawn(Color.White), new Pawn(Color.White), new Pawn(Color.White), 
-                new Pawn(Color.White), new Pawn(Color.White), new Pawn(Color.White), new Pawn(Color.White), 
+                new Pawn(Color.White), new Pawn(Color.White), new Pawn(Color.White), new Pawn(Color.White)
             ],   
 
             // White Empty Area
