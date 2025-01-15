@@ -128,14 +128,14 @@ export class ChessBoard {
         const safeSquares: SafeSquares = new Map<string, Coords[]>();
 
         for(let x=0; x < this.chessBoardSize; x++) {
-            for(let y=0; y<this.chessBoardSize; y++){
+            for(let y=0; y < this.chessBoardSize; y++){
                 const piece: Piece | null = this.chessBoard[x][y];
                 if(!piece || piece.color !== this._playerColor) continue;
 
                 const pieceSafeSquares: Coords[] = [];
 
                 for(const {x: dx, y: dy} of piece.directions) {
-                    let newX: number = x+dx;
+                    let newX: number = x + dx;
                     let newY: number = y + dy;
 
                     if(!this.areCoordsValid(newX, newY)) continue;
@@ -145,7 +145,7 @@ export class ChessBoard {
 
                     //Need to restrict pawn moves in cetain directions
                     if(piece instanceof Pawn) {
-                        // Con't move pawn teo squares straight if there is piece infront of him
+                        // Con't move pawn two squares straight if there is piece infront of him
                         if(dx === 2 || dx === -2) {
                             if(newPiece) continue;
                             if(this.chessBoard[newX + (dx === 2 ? -1 : 1)][newY]) continue;
