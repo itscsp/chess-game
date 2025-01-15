@@ -59,14 +59,12 @@ export class ChessBoard {
         return this._safeSquares;
     }
 
-
-
     public static isSquareDark (x:number, y:number): boolean {
         return x % 2 === 0 && y % 2 === 0 || x % 2 === 1 && y % 2 === 1; 
     }
 
     private areCoordsValid(x:number, y:number): boolean {
-        return x >= 0 && x < this.chessBoardSize && y >= 0 && y < this.chessBoardSize;
+        return x >= 0 && y >= 0 && x < this.chessBoardSize && y < this.chessBoardSize;
     }
 
     public isInCheck(playerColor: Color): boolean {
@@ -95,7 +93,7 @@ export class ChessBoard {
                             if(attackedPiece !== null) break;
                             
                             newX += dx;
-                            newY + dy;
+                            newY += dy;
                         }
                     }
                 }
@@ -145,7 +143,7 @@ export class ChessBoard {
 
                     //Need to restrict pawn moves in cetain directions
                     if(piece instanceof Pawn) {
-                        // Con't move pawn two squares straight if there is piece infront of him
+                        // Can't move pawn two squares straight if there is piece infront of him
                         if(dx === 2 || dx === -2) {
                             if(newPiece) continue;
                             if(this.chessBoard[newX + (dx === 2 ? -1 : 1)][newY]) continue;
@@ -154,12 +152,13 @@ export class ChessBoard {
                         //Can't move pawn one square straight if there is infront of him
                         if((dx === 1 || dx === -1) && dy === 0 && newPiece) continue;
 
-                        //Con't move pawn diagonally of there is no piece, or piece has same color as pawn
+                        //Can't move pawn diagonally of there is no piece, or piece has same color as pawn
                         if((dy === 1 || dy === -1) && (!newPiece || piece.color === newPiece.color)) continue;
 
                     }
 
                     if(piece instanceof Pawn || piece instanceof Knight || piece instanceof King) {
+                        debugger;
                         if(this.isPositionSafeAfterMove(piece, x, y, newX, newY))
                             pieceSafeSquares.push({x: newX, y: newY});
                     } else {
@@ -179,11 +178,15 @@ export class ChessBoard {
                 }
 
                 if(pieceSafeSquares.length)
-                    safeSquares.set(x + ','+y, pieceSafeSquares);
+                    safeSquares.set(x + ','+ y, pieceSafeSquares);
 
             }
         }
 
         return safeSquares;
     }   
+
+    // public move(prevX: number, prevY: number, newX: number, newY: number): void {
+    //     if(!this.areCoordsValid(prevX, prevY) || )
+    // }
 }

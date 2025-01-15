@@ -44,6 +44,8 @@ export class ChessBoardComponent {
   }
 
   public isSquareSafeForSelectedPiece(x: number, y: number): boolean {
+    // debugger;
+    // console.log(x, y)
     return this.pieceSafeSquares.some(
       (coords) => coords.x === x && coords.y === y
     );
@@ -52,10 +54,13 @@ export class ChessBoardComponent {
   public selectingPiece(x: number, y: number): void {
     const piece: FENChar | null = this.chessBoardView[x][y];
 
+    console.log(x, y, piece)
+
     if (!piece) return;
     if(this.isWrongPieceSelected(piece)) return;
 
     this.selectedSquare = { piece, x, y };
+    
     this.pieceSafeSquares = this.safeSquares.get(x + ',' + y) || [];
   }
 
