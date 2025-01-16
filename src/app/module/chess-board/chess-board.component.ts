@@ -51,6 +51,11 @@ export class ChessBoardComponent {
     );
   }
 
+  private unmarkingPreviouslySelectedAndSafeSquares(): void{
+    this.selectedSquare = {piece: null};
+    this.pieceSafeSquares = []
+  }
+
   public selectingPiece(x: number, y: number): void {
     const piece: FENChar | null = this.chessBoardView[x][y];
 
@@ -59,9 +64,29 @@ export class ChessBoardComponent {
     if (!piece) return;
     if(this.isWrongPieceSelected(piece)) return;
 
+    const isSameSquareClicked: boolean = !!this.selectedSquare.piece && this.selectedSquare.x === x && this.selectedSquare.y === y;
+    this.unmarkingPreviouslySelectedAndSafeSquares();
+
+    if(isSameSquareClicked) return
+
     this.selectedSquare = { piece, x, y };
     
     this.pieceSafeSquares = this.safeSquares.get(x + ',' + y) || [];
+  }
+
+  private placingPiece(newX: number, newY: number): void{
+    if(!this.selectedSquare.piece) return
+    if(!this.isSquareSafeForSelectedPiece(newX, newY)) return;
+
+    const {x:prevX, y:prevY} = this.selectedSquare;
+    this.chessBoard.move(prevX, prevY, newX, newY);
+    this.chessBoardView = this.chessBoard.chessBoardView;
+    this.unmarkingPreviouslySelectedAndSafeSquares();
+  }
+
+  public move(x:number, y: number): void {
+    this.selectingPiece(x, y);
+    this.placingPiece(x, y);
   }
 
   private isWrongPieceSelected(piece: FENChar): boolean {

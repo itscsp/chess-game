@@ -20,13 +20,9 @@ export class Pawn extends Piece {
     }
 
     private setBlackPawnDirections(): void {
-        this._directions = [
-            {x: -1, y: 0},
-            {x: -2, y: 0},
-            {x: -1, y: 1},
-            {x: -1, y: -1}
-        ];
+        this._directions = this._directions.map(({ x, y }) => ({ x: -1 * x, y }));
     }
+
 
     public get hasMoved(): boolean {
         return this._hasMoved;
