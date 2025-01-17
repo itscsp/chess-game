@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { ChessBoard } from '../../chess-logic/chess-board';
 import {
+  CheckState,
   Color,
   Coords,
   FENChar,
+  LastMove,
   pieceImagePaths,
   SafeSquares,
 } from '../../chess-logic/pieces/models';
@@ -28,8 +30,9 @@ export class ChessBoardComponent {
   }
 
   private selectedSquare: SelectedSquare = { piece: null };
-
   private pieceSafeSquares: Coords[] = [];
+  private lastMove: LastMove | undefined = this.chessBoard.lastMove;
+  private checkState: CheckState = this.chessBoard.checkState;
 
   constructor() {
     console.log(pieceImagePaths);
